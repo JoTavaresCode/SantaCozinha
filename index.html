@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santa Cozinha – Confeitaria Artesanal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Notification -->
+<div class="notif" id="notif"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" id="nav-logo-text"> Santa <span>Cozinha</span></div>
+  <ul class="nav-links">
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="https://wa.me/5512997555697" class="nav-cta" id="nav-wpp-btn">
+  Fazer Pedido
+</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-ornament"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-tag">Feito com amor e carinho</div>
+      <h1>Doces <em>artesanais</em><br>que encantam</h1>
+      <p class="hero-desc">Cada doce é preparado à mão com ingredientes selecionados, trazendo sabor e delicadeza para os seus momentos especiais.</p>
+      <div class="hero-btns">
+        <a href="#produtos" class="btn-gold">Ver Produtos</a>
+        <a href="#contato" class="btn-outline">Encomendar</a>
+      </div>
+    </div>
+  <div class="hero-img-wrap">
+  <div class="hero-img-frame" id="hero-img-frame">
+ <img src="assets/doce1 (3).jpg" alt="Karla confeiteira" class="hero-img">
+
+  <div class="hero-badge">
+    <strong>100%</strong>
+    <span>Artesanal</span>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos">
+  <div class="section-header">
+    <div class="section-tag">Cardápio</div>
+    <h2>Nossos <em>Doces</em></h2>
+    <a href="https://wa.me/5512997555697" class="btn-pedir" onclick="pedirProduto('Quero conhecer o cardápio e fazer um pedido!')" target="_blank">
+  Conheça o Cardápio Aqui!
+</a>
+    <div class="section-divider"></div>
+  </div>
+  <div class="produtos-grid" id="produtos-grid"></div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-inner">
+    <div class="sobre-img" id="sobre-img">
+      <div class="placeholder-art">
+        <span class="icon">✨</span>
+        <span>Karla</span>
+      </div>
+    </div>
+    <div class="sobre-text">
+      <div class="section-tag">Nossa História</div>
+      <h2>Feito com <em>paixão</em></h2>
+      <div class="section-divider" style="margin:1rem 0 1.2rem;"></div>
+      <p id="sobre-texto">Somos uma confeitaria artesanal localizada no Vale do Baú, apaixonada por criar doces que tocam o coração.</p>
+      <p>Do brigadeiro gourmet ao bolo personalizado, trabalhamos para que cada pedido seja único e inesquecível.</p>
+      <div class="sobre-stats">
+        <div class="stat"><strong>500+</strong><span>Clientes felizes</span></div>
+        <div class="stat"><strong>50+</strong><span>Receitas únicas</span></div>
+        <div class="stat"><strong>5★</strong><span>Avaliação</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="section-header">
+    <div class="section-tag">Pedidos</div>
+    <h2>Faça seu <em>pedido</em></h2>
+    <div class="section-divider"></div>
+    <p>Entre em contato pelo WhatsApp e faça sua encomenda com facilidade!</p>
+  </div>
+  <div class="contato-btns">
+    <a href="https://wa.me/5512997555697" class="btn-wpp" id="main-wpp-btn" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Pedir pelo WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo" id="footer-logo-text">Santa Cozinha</div>
+  <p>©  Santa Cozinha Adoçando Vidas Desde 2020 – Todos os direitos reservados</p>
+  <p style="margin-top:.3rem;"><a href="#" onclick="abrirAdmin(); return false;">Acesso Administrativo</a></p>
+</footer>
+
+<!--AVALIAÇÕES DO GOOGLE-->
+<fetch(`https://maps.googleapis.com/maps/api/place/details/json
+  ?place_id=SEU_PLACE_ID
+  &fields=reviews,rating,user_ratings_total
+  &key=SUA_API_KEY`)> </fetch>
+
+
+<!-- ADMIN OVERLAY -->
+<div id="admin-overlay">
+  <div class="admin-panel">
+    <div class="admin-header">
+      <h3>Painel <span>Administrativo</span></h3>
+      <button class="admin-close" onclick="fecharAdmin()">✕</button>
+    </div>
+    <div class="admin-body">
+
+      <!-- LOGIN -->
+      <div id="admin-login">
+        <div class="login-wrap">
+          <div class="login-logo">Santa Cozinha</div>
+          <div class="login-sub">Área Restrita</div>
+          <div class="login-form">
+            <div class="login-error" id="login-error">Usuário ou senha incorretos.</div>
+            <div class="form-group">
+              <label>Usuário</label>
+              <input type="text" id="login-user" placeholder="admin" />
+            </div>
+            <div class="form-group">
+              <label>Senha</label>
+              <input type="password" id="login-pass" placeholder="••••••" onkeydown="if(event.key==='Enter') fazerLogin()" />
+            </div>
+            <button class="admin-btn" onclick="fazerLogin()" style="width:100%">Entrar</button>
+            <p style="font-size:.75rem;color:#9C7A52;text-align:center;margin-top:.8rem;">Acesso administrativo</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL -->
+      <div id="admin-painel" style="display:none;">
+        <div class="admin-tabs">
+          <button class="admin-tab active" onclick="abaAdmin(this,'tab-produtos')">🍬 Produtos</button>
+          <button class="admin-tab" onclick="abaAdmin(this,'tab-novo')">➕ Novo Produto</button>
+          <button class="admin-tab" onclick="abaAdmin(this,'tab-config')">⚙️ Configurações</button>
+        </div>
+
+        <!-- TAB PRODUTOS -->
+        <div class="tab-content active" id="tab-produtos">
+          <p style="font-size:.85rem;color:var(--text-light);margin-bottom:1rem;">Clique em <strong>Editar</strong> para alterar ou <strong>Excluir</strong> para remover.</p>
+          <div class="admin-product-list" id="admin-product-list"></div>
+        </div>
+
+        <!-- TAB NOVO PRODUTO -->
+        <div class="tab-content" id="tab-novo">
+          <input type="hidden" id="edit-id" value="">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nome do Produto *</label>
+              <input type="text" id="p-nome" placeholder="Ex: Brigadeiro Gourmet" />
+            </div>
+            <div class="form-group">
+              <label>Categoria</label>
+              <select id="p-cat">
+                <option value="Destaque">⭐ Destaque</option>
+                <option value="Brigadeiros">Brigadeiros</option>
+                <option value="Bolos">Bolos</option>
+                <option value="Cestas Especiais">Cestas Especiais</option>
+                <option value="Trufas">Trufas</option>
+                <option value="Outros">Outros</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Descrição</label>
+            <textarea id="p-desc" placeholder="Descreva o produto: ingredientes, sabores, tamanhos..."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preço</label>
+              <input type="text" id="p-preco" placeholder="R$ 8,00" />
+            </div>
+            <div class="form-group">
+              <label>Unidade / Porção</label>
+              <input type="text" id="p-unidade" placeholder="a unidade / caixa com 12" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Foto do Produto</label>
+            <div class="upload-area" onclick="document.getElementById('p-img-input').click()">
+              <input type="file" id="p-img-input" accept="image/*" onchange="previewImg(this)" />
+              <div class="upload-icon">📷</div>
+              <strong>Clique aqui para escolher uma foto</strong>
+              <p>Formatos aceitos: JPG, PNG, WEBP</p>
+              <img id="p-img-preview" class="preview-img" style="display:none;" alt="preview" />
+            </div>
+          </div>
+          <div style="display:flex;gap:.7rem;flex-wrap:wrap;">
+            <button class="admin-btn" onclick="salvarProduto()" id="btn-salvar">💾 Salvar Produto</button>
+            <button class="admin-btn secondary" onclick="limparForm()">Cancelar</button>
+          </div>
+        </div>
+
+        <!-- TAB CONFIGURAÇÕES -->
+        <div class="tab-content" id="tab-config">
+          <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;margin-bottom:1rem;color:var(--text-dark);">Dados da Loja</h4>
+          <div class="loja-config-row">
+            <div class="form-group">
+              <label>Nome da Loja</label>
+              <input type="text" id="cfg-nome" placeholder="Santa Cozinha" />
+            </div>
+            <div class="form-group">
+              <label>Slogan</label>
+              <input type="text" id="cfg-slogan" placeholder="Confeitaria Artesanal" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Texto "Sobre Nós"</label>
+            <textarea id="cfg-sobre"></textarea>
+          </div>
+          <div style="border:1px solid var(--gold-light);border-radius:4px;padding:1rem;margin-bottom:1.2rem;background:var(--cream);">
+            <label style="font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--text-mid);display:block;margin-bottom:.8rem;">📱 Número do WhatsApp</label>
+            <input type="text" id="cfg-wpp" placeholder="5511999999999 (somente números com DDI)" style="width:100%;" />
+            <p style="font-size:.75rem;color:var(--text-light);margin-top:.4rem;">Somente números. Ex para SP: 5511999999999</p>
+          </div>
+          <button class="admin-btn" onclick="salvarConfig()">💾 Salvar Configurações</button>
+
+          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--gold-light);">
+            <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin-bottom:.5rem;color:var(--text-dark);">Alterar Senha</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nova Senha</label>
+                <input type="password" id="cfg-nova-senha" placeholder="Nova senha" />
+              </div>
+              <div class="form-group">
+                <label>Confirmar Senha</label>
+                <input type="password" id="cfg-conf-senha" placeholder="Confirmar" />
+              </div>
+            </div>
+            <button class="admin-btn secondary" onclick="alterarSenha()">Alterar Senha</button>
+          </div>
+
+          <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--gold-light);text-align:right;">
+            <button class="admin-btn danger" onclick="sair()">Sair / Logout</button>
+          </div>
+        </div>
+
+      </div><!-- fim admin-painel -->
+    </div><!-- fim admin-body -->
+  </div><!-- fim admin-painel -->
+</div><!-- fim admin-overlay -->
+
+<script src="js/app.js"></script>
+</body>
+</html>
