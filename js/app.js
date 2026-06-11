@@ -73,7 +73,7 @@ function renderProdutos() {
 }
 
 function categoriaEmoji(cat) {
-  var m = { Brigadeiros: '🍫', Bolos: '🎂', Trufas: '🍬', Destaque: '⭐', Outros: '🍭', Especiais da Karla: };
+var m = { Brigadeiros: '🍫', Bolos: '🎂', Trufas: '🍬', Destaque: '⭐', Outros: '🍭', Especiais da Karla: };
   return m[cat] || '🍬';
 }
 
