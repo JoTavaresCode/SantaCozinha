@@ -4,8 +4,8 @@
 var state = {
   logado: false,
   senha: 'doceria123',
-  wpp: '5511999999999',
-  lojaNome: 'Doce Arte',
+  wpp: '5512997555697',
+  lojaNome: 'Santa Cozinha',
   lojaSlogan: 'Feito com amor',
   sobreTexto: 'Somos uma confeitaria artesanal apaixonada por criar doces que tocam o coração. Cada receita é uma herança de família, preparada com ingredientes frescos e muito carinho.',
   produtos: [
@@ -73,7 +73,7 @@ function renderProdutos() {
 }
 
 function categoriaEmoji(cat) {
-  var m = { Brigadeiros: '🍫', Bolos: '🎂', Trufas: '🍬', Destaque: '⭐', Outros: '🍭' };
+  var m = { Brigadeiros: '🍫', Bolos: '🎂', Trufas: '🍬', Destaque: '⭐', Outros: '🍭', Especiais da Karla: };
   return m[cat] || '🍬';
 }
 
