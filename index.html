@@ -34,9 +34,9 @@
   <div class="hero-bg-ornament"></div>
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-tag">Feito com amor e carinho</div>
+      <div class="hero-tag" id="hero-tag">Feito com amor e carinho</div>
       <h1>Doces <em>artesanais</em><br>que encantam</h1>
-      <p class="hero-desc">Cada doce é preparado à mão com ingredientes selecionados, trazendo sabor e delicadeza para os seus momentos especiais.</p>
+      <p class="hero-desc" id="hero-desc">Cada doce é preparado à mão com ingredientes selecionados, trazendo sabor e delicadeza para os seus momentos especiais.</p>
       <div class="hero-btns">
         <a href="#produtos" class="btn-gold">Ver Produtos</a>
         <a href="#contato" class="btn-outline">Encomendar</a>
@@ -81,11 +81,11 @@
       <h2>Feito com <em>paixão</em></h2>
       <div class="section-divider" style="margin:1rem 0 1.2rem;"></div>
       <p id="sobre-texto">Somos uma confeitaria artesanal localizada no Vale do Baú, apaixonada por criar doces que tocam o coração.</p>
-      <p>Do brigadeiro gourmet ao bolo personalizado, trabalhamos para que cada pedido seja único e inesquecível.</p>
+      <p id="sobre-texto2">Do brigadeiro gourmet ao bolo personalizado, trabalhamos para que cada pedido seja único e inesquecível.</p>
       <div class="sobre-stats">
-        <div class="stat"><strong>500+</strong><span>Clientes felizes</span></div>
-        <div class="stat"><strong>50+</strong><span>Receitas únicas</span></div>
-        <div class="stat"><strong>5★</strong><span>Avaliação</span></div>
+        <div class="stat"><strong id="stat-clientes">500+</strong><span>Clientes felizes</span></div>
+        <div class="stat"><strong id="stat-receitas">50+</strong><span>Receitas únicas</span></div>
+        <div class="stat"><strong id="stat-avaliacao">5★</strong><span>Avaliação</span></div>
       </div>
     </div>
   </div>
@@ -132,50 +132,95 @@
 
 <!-- ADMIN OVERLAY -->
 <div id="admin-overlay">
-  <div class="admin-panel">
-    <div class="admin-header">
-      <h3>Painel <span>Administrativo</span></h3>
-      <button class="admin-close" onclick="fecharAdmin()">✕</button>
-    </div>
-    <div class="admin-body">
 
-      <!-- LOGIN -->
-      <div id="admin-login">
-        <div class="login-wrap">
-          <div class="login-logo">Santa Cozinha</div>
-          <div class="login-sub">Área Restrita</div>
-          <div class="login-form">
-            <div class="login-error" id="login-error">Usuário ou senha incorretos.</div>
-            <div class="form-group">
-              <label>Usuário</label>
-              <input type="text" id="login-user" placeholder="admin" />
-            </div>
-            <div class="form-group">
-              <label>Senha</label>
-              <input type="password" id="login-pass" placeholder="••••••" onkeydown="if(event.key==='Enter') fazerLogin()" />
-            </div>
-            <button class="admin-btn" onclick="fazerLogin()" style="width:100%">Entrar</button>
-            <p style="font-size:.75rem;color:#9C7A52;text-align:center;margin-top:.8rem;">Acesso administrativo</p>
-          </div>
-        </div>
+  <!-- TELA DE LOGIN -->
+  <div id="admin-login">
+    <div class="login-card">
+      <div class="login-logo">Santa <span>Cozinha</span></div>
+      <div class="login-sub">Área Administrativa</div>
+      <div class="login-error" id="login-error">Usuário ou senha incorretos.</div>
+      <div class="form-group">
+        <label>Usuário</label>
+        <input type="text" id="login-user" placeholder="admin" />
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="login-pass" placeholder="••••••" onkeydown="if(event.key==='Enter') fazerLogin()" />
+      </div>
+      <button class="admin-btn" onclick="fazerLogin()" style="width:100%;margin-top:.5rem;">Entrar</button>
+      <button class="login-cancel" onclick="fecharAdmin()">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- PAINEL PRINCIPAL -->
+  <div id="admin-painel" style="display:none;">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="sidebar-brand">
+        <div class="sidebar-logo">Santa <span>Cozinha</span></div>
+        <div class="sidebar-subtitle">Painel Administrativo</div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-item active" onclick="abaAdmin(this,'tab-dashboard')">
+          <span class="si-icon">📊</span><span class="si-label">Dashboard</span>
+        </button>
+        <button class="sidebar-item" onclick="abaAdmin(this,'tab-produtos')">
+          <span class="si-icon">🍬</span><span class="si-label">Produtos</span>
+        </button>
+        <button class="sidebar-item" onclick="abaAdmin(this,'tab-novo')">
+          <span class="si-icon">➕</span><span class="si-label">Novo Produto</span>
+        </button>
+        <button class="sidebar-item" onclick="abaAdmin(this,'tab-config')">
+          <span class="si-icon">⚙️</span><span class="si-label">Configurações</span>
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="sidebar-logout" onclick="sair()">⎋ Sair do Painel</button>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="admin-main">
+
+      <!-- TOPBAR -->
+      <div class="admin-topbar">
+        <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <span class="topbar-title" id="topbar-title">Dashboard</span>
+        <button class="admin-close-btn" onclick="fecharAdmin()">✕ Fechar</button>
       </div>
 
-      <!-- PAINEL -->
-      <div id="admin-painel" style="display:none;">
-        <div class="admin-tabs">
-          <button class="admin-tab active" onclick="abaAdmin(this,'tab-produtos')">🍬 Produtos</button>
-          <button class="admin-tab" onclick="abaAdmin(this,'tab-novo')">➕ Novo Produto</button>
-          <button class="admin-tab" onclick="abaAdmin(this,'tab-config')">⚙️ Configurações</button>
+      <!-- OVERLAY MOBILE SIDEBAR -->
+      <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="toggleSidebar()"></div>
+
+      <!-- ABAS DE CONTEÚDO -->
+      <div class="admin-content">
+
+        <!-- TAB DASHBOARD -->
+        <div class="tab-content active" id="tab-dashboard">
+          <h2 class="content-title">Dashboard</h2>
+          <div class="dash-grid" id="dash-grid"></div>
+          <div class="dash-quick">
+            <p class="dash-quick-title">Acesso Rápido</p>
+            <div class="dash-quick-btns">
+              <button class="admin-btn secondary" onclick="abaAdmin(document.querySelector('[onclick*=tab-novo]'),'tab-novo')">➕ Adicionar Produto</button>
+              <button class="admin-btn secondary" onclick="abaAdmin(document.querySelector('[onclick*=tab-config]'),'tab-config')">⚙️ Editar Configurações</button>
+            </div>
+          </div>
         </div>
 
         <!-- TAB PRODUTOS -->
-        <div class="tab-content active" id="tab-produtos">
+        <div class="tab-content" id="tab-produtos">
+          <h2 class="content-title">Produtos</h2>
           <p style="font-size:.85rem;color:var(--text-light);margin-bottom:1rem;">Clique em <strong>Editar</strong> para alterar ou <strong>Excluir</strong> para remover.</p>
           <div class="admin-product-list" id="admin-product-list"></div>
         </div>
 
         <!-- TAB NOVO PRODUTO -->
         <div class="tab-content" id="tab-novo">
+          <h2 class="content-title" id="form-title">Novo Produto</h2>
           <input type="hidden" id="edit-id" value="">
           <div class="form-row">
             <div class="form-group">
@@ -212,10 +257,14 @@
             <label>Foto do Produto</label>
             <div class="upload-area" onclick="document.getElementById('p-img-input').click()">
               <input type="file" id="p-img-input" accept="image/*" onchange="previewImg(this)" />
-              <div class="upload-icon">📷</div>
-              <strong>Clique aqui para escolher uma foto</strong>
-              <p>Formatos aceitos: JPG, PNG, WEBP</p>
-              <img id="p-img-preview" class="preview-img" style="display:none;" alt="preview" />
+              <div id="upload-placeholder">
+                <div class="upload-icon">📷</div>
+                <strong>Clique aqui para escolher uma foto</strong>
+                <p>Formatos aceitos: JPG, PNG, WEBP</p>
+              </div>
+              <div id="upload-preview-wrap" style="display:none;">
+                <img id="p-img-preview" class="preview-img" alt="preview" />
+              </div>
             </div>
           </div>
           <div style="display:flex;gap:.7rem;flex-wrap:wrap;">
@@ -226,30 +275,104 @@
 
         <!-- TAB CONFIGURAÇÕES -->
         <div class="tab-content" id="tab-config">
-          <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;margin-bottom:1rem;color:var(--text-dark);">Dados da Loja</h4>
-          <div class="loja-config-row">
-            <div class="form-group">
-              <label>Nome da Doceria</label>
-              <input type="text" id="cfg-nome" placeholder="Santa Cozinha" />
-            </div>
-            <div class="form-group">
-              <label>Qual é seu Slogan?</label>
-              <input type="text" id="cfg-slogan" placeholder="Confeitaria Artesanal" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Texto "Sobre Nós"</label>
-            <textarea id="cfg-sobre"></textarea>
-          </div>
-          <div style="border:1px solid var(--gold-light);border-radius:4px;padding:1rem;margin-bottom:1.2rem;background:var(--cream);">
-            <label style="font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--text-mid);display:block;margin-bottom:.8rem;">📱 Número do WhatsApp</label>
-            <input type="text" id="cfg-wpp" placeholder="5511999999999 (somente números com DDI)" style="width:100%;" />
-            <p style="font-size:.75rem;color:var(--text-light);margin-top:.4rem;">Somente números. Ex para SP: 5511999999999</p>
-          </div>
-          <button class="admin-btn" onclick="salvarConfig()">💾 Salvar Configurações</button>
+          <h2 class="content-title">Configurações</h2>
 
-          <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--gold-light);">
-            <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin-bottom:.5rem;color:var(--text-dark);">Alterar Senha</h4>
+          <!-- DADOS DA LOJA -->
+          <div class="cfg-section">
+            <div class="cfg-section-title">🏪 Dados da Loja</div>
+            <div class="loja-config-row">
+              <div class="form-group">
+                <label>Nome da Doceria</label>
+                <input type="text" id="cfg-nome" placeholder="Santa Cozinha" />
+              </div>
+              <div class="form-group">
+                <label>Slogan</label>
+                <input type="text" id="cfg-slogan" placeholder="Adoçando vidas desde 2020" />
+              </div>
+            </div>
+            <div style="border:1px solid var(--gold-light);border-radius:4px;padding:1rem;margin-bottom:1.2rem;background:var(--cream);">
+              <label style="font-size:.78rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--text-mid);display:block;margin-bottom:.8rem;">📱 Número do WhatsApp</label>
+              <input type="text" id="cfg-wpp" placeholder="5511999999999 (somente números com DDI)" style="width:100%;" />
+              <p style="font-size:.75rem;color:var(--text-light);margin-top:.4rem;">Somente números. Ex para SP: 5511999999999</p>
+            </div>
+          </div>
+
+          <!-- FOTOS DO SITE -->
+          <div class="cfg-section">
+            <div class="cfg-section-title">📸 Fotos do Site</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Foto Principal (Hero)</label>
+                <div class="upload-area upload-area-sm" onclick="document.getElementById('cfg-hero-input').click()">
+                  <input type="file" id="cfg-hero-input" accept="image/*" onchange="previewCfgImg(this,'cfg-hero-preview')" />
+                  <img id="cfg-hero-preview" class="cfg-img-preview" style="display:none;" alt="preview hero" />
+                  <div id="cfg-hero-placeholder">
+                    <div class="upload-icon" style="font-size:2rem;">🖼️</div>
+                    <strong>Foto do topo do site</strong>
+                    <p>Clique para trocar</p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Foto da Seção "Sobre"</label>
+                <div class="upload-area upload-area-sm" onclick="document.getElementById('cfg-sobre-input').click()">
+                  <input type="file" id="cfg-sobre-input" accept="image/*" onchange="previewCfgImg(this,'cfg-sobre-preview')" />
+                  <img id="cfg-sobre-preview" class="cfg-img-preview" style="display:none;" alt="preview sobre" />
+                  <div id="cfg-sobre-placeholder">
+                    <div class="upload-icon" style="font-size:2rem;">👩‍🍳</div>
+                    <strong>Foto da confeiteira</strong>
+                    <p>Clique para trocar</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TEXTOS DO HERO -->
+          <div class="cfg-section">
+            <div class="cfg-section-title">✍️ Textos da Página Inicial</div>
+            <div class="form-group">
+              <label>Tag de destaque (frase pequena acima do título)</label>
+              <input type="text" id="cfg-hero-tag" placeholder="Feito com amor e carinho" />
+            </div>
+            <div class="form-group">
+              <label>Descrição (parágrafo abaixo do título)</label>
+              <textarea id="cfg-hero-desc" style="min-height:70px;"></textarea>
+            </div>
+          </div>
+
+          <!-- SEÇÃO SOBRE -->
+          <div class="cfg-section">
+            <div class="cfg-section-title">💛 Seção "Sobre Nós"</div>
+            <div class="form-group">
+              <label>Primeiro parágrafo</label>
+              <textarea id="cfg-sobre-txt1"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Segundo parágrafo</label>
+              <textarea id="cfg-sobre-txt2"></textarea>
+            </div>
+            <div class="form-row" style="grid-template-columns:1fr 1fr 1fr;">
+              <div class="form-group">
+                <label>Clientes felizes</label>
+                <input type="text" id="cfg-stat-clientes" placeholder="500+" />
+              </div>
+              <div class="form-group">
+                <label>Receitas únicas</label>
+                <input type="text" id="cfg-stat-receitas" placeholder="50+" />
+              </div>
+              <div class="form-group">
+                <label>Avaliação</label>
+                <input type="text" id="cfg-stat-avaliacao" placeholder="5★" />
+              </div>
+            </div>
+          </div>
+
+          <button class="admin-btn" onclick="salvarConfig()">💾 Salvar Todas as Configurações</button>
+
+          <!-- ALTERAR SENHA -->
+          <div class="cfg-section" style="margin-top:1.5rem;">
+            <div class="cfg-section-title">🔒 Alterar Senha</div>
             <div class="form-row">
               <div class="form-group">
                 <label>Nova Senha</label>
@@ -263,13 +386,10 @@
             <button class="admin-btn secondary" onclick="alterarSenha()">Alterar Senha</button>
           </div>
 
-          <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--gold-light);text-align:right;">
-            <button class="admin-btn danger" onclick="sair()">Sair / Logout</button>
-          </div>
-        </div>
+        </div><!-- fim tab-config -->
 
-      </div><!-- fim admin-painel -->
-    </div><!-- fim admin-body -->
+      </div><!-- fim admin-content -->
+    </div><!-- fim admin-main -->
   </div><!-- fim admin-painel -->
 </div><!-- fim admin-overlay -->
 

@@ -10,6 +10,14 @@ var state = {
   lojaNome:    'Santa Cozinha',
   lojaSlogan:  'Adoçando vidas desde 2020',
   sobreTexto:  'Somos uma confeitaria artesanal localizada no Vale do Baú, apaixonada por criar doces que tocam o coração. Cada receita é uma herança de família, preparada com ingredientes frescos e muito carinho.',
+  sobreTexto2: 'Do brigadeiro gourmet ao bolo personalizado, trabalhamos para que cada pedido seja único e inesquecível.',
+  heroTag:     'Feito com amor e carinho',
+  heroDesc:    'Cada doce é preparado à mão com ingredientes selecionados, trazendo sabor e delicadeza para os seus momentos especiais.',
+  heroFoto:    '',
+  sobreFoto:   '',
+  statClientes: '500+',
+  statReceitas: '50+',
+  statAvaliacao: '5★',
   produtos: [
     {
       id: 1,
@@ -200,9 +208,42 @@ function aplicarConfig() {
     }
   });
 
-  // Texto sobre
+  // Textos sobre
   var sobreEl = document.getElementById('sobre-texto');
   if (sobreEl && state.sobreTexto) sobreEl.textContent = state.sobreTexto;
+  var sobre2El = document.getElementById('sobre-texto2');
+  if (sobre2El && state.sobreTexto2) sobre2El.textContent = state.sobreTexto2;
+
+  // Hero textos
+  var heroTagEl = document.getElementById('hero-tag');
+  if (heroTagEl && state.heroTag) heroTagEl.textContent = state.heroTag;
+  var heroDescEl = document.getElementById('hero-desc');
+  if (heroDescEl && state.heroDesc) heroDescEl.textContent = state.heroDesc;
+
+  // Stats
+  var sc = document.getElementById('stat-clientes');
+  if (sc) sc.textContent = state.statClientes || '500+';
+  var sr = document.getElementById('stat-receitas');
+  if (sr) sr.textContent = state.statReceitas || '50+';
+  var sa = document.getElementById('stat-avaliacao');
+  if (sa) sa.textContent = state.statAvaliacao || '5★';
+
+  // Foto hero
+  var heroFrame = document.getElementById('hero-img-frame');
+  if (heroFrame) {
+    var heroImg = heroFrame.querySelector('.hero-img');
+    if (heroImg && state.heroFoto) {
+      heroImg.src = state.heroFoto;
+    }
+  }
+
+  // Foto sobre
+  var sobreImgEl = document.getElementById('sobre-img');
+  if (sobreImgEl) {
+    if (state.sobreFoto) {
+      sobreImgEl.innerHTML = '<img src="' + state.sobreFoto + '" alt="Sobre" style="width:100%;height:100%;object-fit:cover;">';
+    }
+  }
 }
 
 /* ─────────────────────────────────────
@@ -210,10 +251,10 @@ function aplicarConfig() {
 ───────────────────────────────────── */
 function abrirAdmin() {
   document.getElementById('admin-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
   if (!state.logado) {
     document.getElementById('admin-login').style.display  = '';
     document.getElementById('admin-painel').style.display = 'none';
-    // Foca no campo usuário
     setTimeout(function () {
       var u = document.getElementById('login-user');
       if (u) u.focus();
@@ -225,12 +266,17 @@ function abrirAdmin() {
 
 function fecharAdmin() {
   document.getElementById('admin-overlay').classList.remove('active');
+  document.body.style.overflow = '';
 }
 
-// Fecha clicando fora do painel
-document.addEventListener('click', function (e) {
-  var overlay = document.getElementById('admin-overlay');
-  if (e.target === overlay) fecharAdmin();
+function toggleSidebar() {
+  var painel = document.getElementById('admin-painel');
+  painel.classList.toggle('sidebar-open');
+}
+
+// ESC fecha o painel
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') fecharAdmin();
 });
 
 /* ─────────────────────────────────────
@@ -252,10 +298,17 @@ function fazerLogin() {
   }
 }
 
+var titulos = {
+  'tab-dashboard': 'Dashboard',
+  'tab-produtos':  'Produtos',
+  'tab-novo':      'Novo Produto',
+  'tab-config':    'Configurações'
+};
+
 function mostrarPainel() {
   document.getElementById('admin-login').style.display  = 'none';
   document.getElementById('admin-painel').style.display = '';
-  renderAdminProdutos();
+  renderDashboard();
   preencherConfig();
 }
 
@@ -268,12 +321,53 @@ function sair() {
    ADMIN – ABAS
 ───────────────────────────────────── */
 function abaAdmin(btn, tabId) {
-  document.querySelectorAll('.admin-tab').forEach(function (t) { t.classList.remove('active'); });
+  document.querySelectorAll('.sidebar-item').forEach(function (t) { t.classList.remove('active'); });
   document.querySelectorAll('.tab-content').forEach(function (t) { t.classList.remove('active'); });
   btn.classList.add('active');
   document.getElementById(tabId).classList.add('active');
-  if (tabId === 'tab-produtos') renderAdminProdutos();
-  if (tabId === 'tab-config')   preencherConfig();
+
+  // Atualiza título da topbar
+  var titulo = document.getElementById('topbar-title');
+  if (titulo) titulo.textContent = titulos[tabId] || '';
+
+  // Fecha sidebar no mobile
+  document.getElementById('admin-painel').classList.remove('sidebar-open');
+
+  if (tabId === 'tab-dashboard') renderDashboard();
+  if (tabId === 'tab-produtos')  renderAdminProdutos();
+  if (tabId === 'tab-config')    preencherConfig();
+}
+
+/* ─────────────────────────────────────
+   ADMIN – DASHBOARD
+─────────────────────────────────────── */
+function renderDashboard() {
+  var grid = document.getElementById('dash-grid');
+  if (!grid) return;
+
+  var total   = state.produtos.length;
+  var comFoto = state.produtos.filter(function (p) { return !!p.img; }).length;
+  var semFoto = total - comFoto;
+  var cats    = state.produtos.map(function (p) { return p.cat; })
+                  .filter(function (c, i, a) { return a.indexOf(c) === i; });
+
+  grid.innerHTML =
+    dashCard('🍬', 'Produtos', total, 'cadastrados no site', '') +
+    dashCard('📸', 'Com foto', comFoto, 'de ' + total + ' produto(s)', semFoto > 0 ? semFoto + ' sem foto' : '') +
+    dashCard('📱', 'WhatsApp', state.wpp ? state.wpp : '—', state.wpp ? 'configurado' : 'não configurado', '') +
+    dashCard('🏷️', 'Categorias', cats.length, cats.length ? cats.join(', ') : 'nenhuma', '');
+}
+
+function dashCard(icon, label, value, sub, warn) {
+  return '<div class="dash-card">' +
+    '<div class="dash-card-icon">' + icon + '</div>' +
+    '<div class="dash-card-body">' +
+      '<div class="dash-card-value">' + value + '</div>' +
+      '<div class="dash-card-label">' + label + '</div>' +
+      '<div class="dash-card-sub">' + sub + '</div>' +
+      (warn ? '<div class="dash-card-warn">⚠️ ' + warn + '</div>' : '') +
+    '</div>' +
+  '</div>';
 }
 
 /* ─────────────────────────────────────
@@ -343,13 +437,16 @@ function editarProduto(id) {
   }
 
   document.getElementById('btn-salvar').textContent = '💾 Atualizar Produto';
+  var formTitle = document.getElementById('form-title');
+  if (formTitle) formTitle.textContent = 'Editar Produto';
 
   // Vai para a aba de edição
   var novoTab = document.querySelector('[onclick*="tab-novo"]');
   abaAdmin(novoTab, 'tab-novo');
 
-  // Rola para o topo do painel
-  document.querySelector('.admin-panel').scrollTop = 0;
+  // Rola para o topo do conteúdo
+  var content = document.querySelector('.admin-content');
+  if (content) content.scrollTop = 0;
 
   notif('Produto carregado para edição!', 'success');
 }
@@ -428,6 +525,8 @@ function limparForm() {
   document.getElementById('p-unidade').value = '';
   document.getElementById('p-img-input').value = '';
   document.getElementById('btn-salvar').textContent = '💾 Salvar Produto';
+  var formTitle = document.getElementById('form-title');
+  if (formTitle) formTitle.textContent = 'Novo Produto';
 
   var prev        = document.getElementById('p-img-preview');
   var prevWrap    = document.getElementById('upload-preview-wrap');
@@ -468,20 +567,66 @@ function previewImg(input) {
    PREENCHER ABA DE CONFIGURAÇÕES
 ───────────────────────────────────── */
 function preencherConfig() {
-  document.getElementById('cfg-nome').value   = state.lojaNome   || '';
-  document.getElementById('cfg-slogan').value = state.lojaSlogan || '';
-  document.getElementById('cfg-sobre').value  = state.sobreTexto || '';
-  document.getElementById('cfg-wpp').value    = state.wpp        || '';
+  document.getElementById('cfg-nome').value          = state.lojaNome    || '';
+  document.getElementById('cfg-slogan').value        = state.lojaSlogan  || '';
+  document.getElementById('cfg-wpp').value           = state.wpp         || '';
+  document.getElementById('cfg-hero-tag').value      = state.heroTag     || '';
+  document.getElementById('cfg-hero-desc').value     = state.heroDesc    || '';
+  document.getElementById('cfg-sobre-txt1').value    = state.sobreTexto  || '';
+  document.getElementById('cfg-sobre-txt2').value    = state.sobreTexto2 || '';
+  document.getElementById('cfg-stat-clientes').value = state.statClientes  || '';
+  document.getElementById('cfg-stat-receitas').value = state.statReceitas  || '';
+  document.getElementById('cfg-stat-avaliacao').value= state.statAvaliacao || '';
+
+  // Foto hero
+  var heroPreview = document.getElementById('cfg-hero-preview');
+  var heroPlaceholder = document.getElementById('cfg-hero-placeholder');
+  if (state.heroFoto) {
+    heroPreview.src = state.heroFoto;
+    heroPreview.style.display = 'block';
+    heroPlaceholder.style.display = 'none';
+  } else {
+    heroPreview.style.display = 'none';
+    heroPlaceholder.style.display = '';
+  }
+
+  // Foto sobre
+  var sobrePreview = document.getElementById('cfg-sobre-preview');
+  var sobrePlaceholder = document.getElementById('cfg-sobre-placeholder');
+  if (state.sobreFoto) {
+    sobrePreview.src = state.sobreFoto;
+    sobrePreview.style.display = 'block';
+    sobrePlaceholder.style.display = 'none';
+  } else {
+    sobrePreview.style.display = 'none';
+    sobrePlaceholder.style.display = '';
+  }
 }
 
 /* ─────────────────────────────────────
    SALVAR CONFIGURAÇÕES
 ───────────────────────────────────── */
 function salvarConfig() {
-  state.lojaNome   = document.getElementById('cfg-nome').value.trim()   || 'Santa Cozinha';
-  state.lojaSlogan = document.getElementById('cfg-slogan').value.trim();
-  state.sobreTexto = document.getElementById('cfg-sobre').value.trim();
-  state.wpp        = document.getElementById('cfg-wpp').value.trim().replace(/\D/g, '');
+  state.lojaNome    = document.getElementById('cfg-nome').value.trim()          || 'Santa Cozinha';
+  state.lojaSlogan  = document.getElementById('cfg-slogan').value.trim();
+  state.wpp         = document.getElementById('cfg-wpp').value.trim().replace(/\D/g, '');
+  state.heroTag     = document.getElementById('cfg-hero-tag').value.trim();
+  state.heroDesc    = document.getElementById('cfg-hero-desc').value.trim();
+  state.sobreTexto  = document.getElementById('cfg-sobre-txt1').value.trim();
+  state.sobreTexto2 = document.getElementById('cfg-sobre-txt2').value.trim();
+  state.statClientes  = document.getElementById('cfg-stat-clientes').value.trim();
+  state.statReceitas  = document.getElementById('cfg-stat-receitas').value.trim();
+  state.statAvaliacao = document.getElementById('cfg-stat-avaliacao').value.trim();
+
+  // Fotos
+  var hp = document.getElementById('cfg-hero-preview');
+  if (hp && hp.style.display !== 'none' && hp.src && hp.src.indexOf('data:') === 0) {
+    state.heroFoto = hp.src;
+  }
+  var sp = document.getElementById('cfg-sobre-preview');
+  if (sp && sp.style.display !== 'none' && sp.src && sp.src.indexOf('data:') === 0) {
+    state.sobreFoto = sp.src;
+  }
 
   salvarStorage();
   aplicarConfig();
@@ -506,6 +651,28 @@ function alterarSenha() {
   document.getElementById('cfg-nova-senha').value = '';
   document.getElementById('cfg-conf-senha').value = '';
   notif('✅ Senha alterada com sucesso!', 'success');
+}
+
+/* ─────────────────────────────────────
+   PREVIEW FOTOS DE CONFIGURAÇÃO
+───────────────────────────────────── */
+function previewCfgImg(input, previewId) {
+  if (!input.files || !input.files[0]) return;
+  var file = input.files[0];
+  if (file.size > 5 * 1024 * 1024) {
+    notif('⚠️ Foto muito grande! Use menor que 5MB.', 'error');
+    return;
+  }
+  var placeholderId = previewId.replace('-preview', '-placeholder');
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    var prev = document.getElementById(previewId);
+    var ph   = document.getElementById(placeholderId);
+    prev.src = e.target.result;
+    prev.style.display = 'block';
+    if (ph) ph.style.display = 'none';
+  };
+  reader.readAsDataURL(file);
 }
 
 /* ─────────────────────────────────────
